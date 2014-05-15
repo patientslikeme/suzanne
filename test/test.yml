@@ -1,0 +1,11 @@
+ROSINE: hello
+
+TRUTHY1: true
+TRUTHY2: t
+TRUTHY3: 1
+
+FALSE1: ""
+
+HASH_ENTRY:
+  HOST: localhost
+  PORT: 5432
