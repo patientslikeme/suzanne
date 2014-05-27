@@ -63,6 +63,20 @@ Suzanne.configure(File.expand_path("config/application.yml", __dir__))
 Suzanne.env.log_level       # => "error"
 ```
 
+The configuration file can be an ERB file. Any embedded Ruby code is evaluated at load time:
+
+```yaml
+# config/application.yml.erb
+
+BACKUP: production_<%=Time.now.strftime('%Y%m%d')%>.bak
+```
+```
+
+```ruby
+Suzanne.configure(File.expand_path("config/application.yml.erb", __dir__))
+Suzanne.env.backup          # => "production_20140101.bak"
+```
+
 ## Contributing
 
 1. Fork it ( http://github.com/patientslikeme/suzanne/fork )

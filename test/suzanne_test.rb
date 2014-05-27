@@ -23,4 +23,9 @@ class SuzanneTest < Minitest::Test
     assert_nil ENV["HASH_ENTRY"]
   end
 
+  def test_configure_parses_erb
+    load_config_erb
+    assert_equal "production_#{Time.now.strftime('%Y%m%d')}.bak", ENV["BACKUP"]
+  end
+
 end

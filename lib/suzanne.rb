@@ -1,3 +1,4 @@
+require "erb"
 require "yaml"
 require "suzanne/version"
 require "suzanne/env"
@@ -9,9 +10,15 @@ module Suzanne
   # Reads the configuration YAML file and updates ENV. Pre-existing environment 
   # variables are not overwritten.
   #
-  #   Suzanne.configure("config/application.yml")
+  #   Suzanne.configure("config/application.yml[.erb]")
   def configure(config_file)
-    hash = File.exist?(config_file) ? YAML.load(File.read(config_file)) : {}
+    hash = if File.exist?(config_file)
+      source = File.read(config_file)
+      source = ERB.new(source).result if config_file =~ /.erb\Z/i
+      YAML.load(source)
+    else
+      {}
+    end
 
     flatten(hash).each do |key, value|
       ENV[key] = value unless ENV.key?(key)

@@ -21,4 +21,8 @@ class Minitest::Test
     Suzanne.configure File.expand_path("test.yml", __dir__)
   end
 
+  def load_config_erb
+    Suzanne.configure File.expand_path("test.yml.erb", __dir__)
+  end
+
 end
